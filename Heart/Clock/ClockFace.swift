@@ -1,0 +1,66 @@
+//
+//  ClockFace.swift
+//  Heart
+//
+//  Created by Anton Gorodetsky on 31.05.2022.
+//
+
+import SwiftUI
+
+struct ClockFace: View {
+  @ObservedObject var clock: ClockModel
+    var body: some View {
+      ZStack {
+        Circle()
+          .foregroundColor(Color.gray)
+          .opacity(0)
+        Arrow(
+          arrowColor:    clock.hoursArrowColor,
+          digitColor:    clock.hoursDigitColor,
+          digit:         $clock.hours,
+          arrowRotation: clock.hoursArrowRotation,
+          digitRotation: clock.hoursDigitRotation,
+          digitOffset: clock.style.hoursDigitOffset,
+          arrowPadding: clock.style.hourArrowPadding,
+          style: clock.style,
+          showDigit: clock.running
+        )
+        .scaleEffect(clock.style.hourArrowScale)
+             
+        Arrow(
+          arrowColor:    clock.minutesArrowColor,
+          digitColor:    clock.minutesDigitColor,
+          digit:         $clock.minutes,
+          arrowRotation: clock.minutesArrowRotation,
+          digitRotation: clock.minutesDigitRotation,
+          digitOffset:  clock.style.minutesDigitOffset,
+          arrowPadding: clock.style.minutesArrowPadding,
+          style:          clock.style,
+          showDigit: clock.running
+        ).scaleEffect(clock.style.minutesArrowScale)
+       
+        Arrow(
+          arrowColor:    clock.secondsArrowColor,
+          digitColor:    clock.secondsDigitColor,
+          digit:         $clock.seconds,
+          arrowRotation: clock.secondsArrowRotation,
+          digitRotation: clock.secondsDigitRotation,
+          digitOffset: clock.style.secondsDigitOffset,
+          arrowPadding: clock.style.seconsArrowPadding,
+          style: clock.style,
+          showDigit: clock.running
+        ).scaleEffect(clock.style.secondsArrowScale)
+        .scaleEffect(Int(clock.seconds) % 2 == 0 ? 0.99 : 1)
+        .scaleEffect(
+          Int(clock.seconds) == 0 && clock.running ? 0.3 : 1)
+      }
+      .animation(.spring(), value: clock.seconds)
+    }
+}
+
+struct ClockFace_Previews: PreviewProvider {
+    static var previews: some View {
+      ClockFace(clock: ClockModel())
+      
+    }
+}
