@@ -16,9 +16,12 @@ class ClockModel: ObservableObject {
   @Published var style: ClockStyle = .grid
   @Published var arrowIndex: Int = 0
   
-  var hoursArrowRotation:   Angle { Angle(degrees: Double(hours * 30) ) }
-  var minutesArrowRotation: Angle { Angle(degrees: Double(minutes * 6)) }
-  var secondsArrowRotation: Angle { Angle(degrees: Double(seconds * 6)) }
+  var secondsArrowRotation: Angle { Angle(degrees:
+        6 *   Double(seconds) ) }
+  var minutesArrowRotation: Angle { Angle(degrees:
+        6 *  ( Double(minutes) + Double(seconds)/60 )) }
+  var hoursArrowRotation:   Angle { Angle(degrees:
+        30 * ( Double(hours)   + Double(minutes)/60 )) }
   
   var hoursDigitRotation:   Angle { -hoursArrowRotation }
   var minutesDigitRotation: Angle { -minutesArrowRotation }

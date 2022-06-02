@@ -33,9 +33,9 @@ struct Arrow: View {
         .aspectRatio(style.aspectRatio, contentMode: .fit)
         .rotationEffect(style.primaryRotationAngle)
         .foregroundColor(arrowColor)
-        .shadow(color: .white, radius: 7,
-                x: 0, y: -3)
-        .shadow(color: .black, radius: 6,
+        .shadow(color: .white, radius: 3,
+                x: 0, y: -2)
+        .shadow(color: .black, radius: 3,
                 x: 0, y: 5)
         .offset(x: 0, y: style.arrowOffset)
     
@@ -47,7 +47,7 @@ struct Arrow: View {
             .fontWeight(.heavy)
             .font(.title)
   //          .brightness(0.3)
-  //          .shadow(color: .black, radius: 2 )
+            .shadow(color: .black, radius: 2 )
             .rotationEffect(digitRotation,
                             anchor: .center)
             .offset(x: 0, y: digitOffset)
@@ -104,7 +104,7 @@ struct Arrow_Previews: PreviewProvider {
     VStack {
       Spacer()
       ZStack {
-        Arrow(arrowColor: .red, digitColor: .black, digit: .constant(24), arrowRotation: .degrees(0), digitRotation: .degrees(0), digitOffset: -35.0, arrowPadding: 50.0,
+        Arrow(arrowColor: .red, digitColor: .yellow, digit: .constant(24), arrowRotation: .degrees(0), digitRotation: .degrees(0), digitOffset: -35.0, arrowPadding: 50.0,
               style: style,
               showDigit: true)
 //        Arrow(arrowColor: .green, digitColor: .red, digit: .constant(0), arrowRotation: .degrees(90), digitRotation: .degrees(0), style: style)
