@@ -23,7 +23,7 @@ struct ClockFace: View {
           digitOffset: clock.style.hoursDigitOffset,
           arrowPadding: clock.style.hourArrowPadding,
           style: clock.style,
-          showDigit: clock.running
+          showDigit: clock.inClockMode
         )
         .scaleEffect(clock.style.hourArrowScale)
              
@@ -36,7 +36,7 @@ struct ClockFace: View {
           digitOffset:  clock.style.minutesDigitOffset,
           arrowPadding: clock.style.minutesArrowPadding,
           style:          clock.style,
-          showDigit: clock.running
+          showDigit: clock.inClockMode
         ).scaleEffect(clock.style.minutesArrowScale)
        
         Arrow(
@@ -48,13 +48,14 @@ struct ClockFace: View {
           digitOffset: clock.style.secondsDigitOffset,
           arrowPadding: clock.style.seconsArrowPadding,
           style: clock.style,
-          showDigit: clock.running
+          showDigit: clock.inClockMode
         ).scaleEffect(clock.style.secondsArrowScale)
         .scaleEffect(Int(clock.seconds) % 2 == 0 ? 0.99 : 1)
         .scaleEffect(
-          Int(clock.seconds) == 0 && clock.running ? 0.3 : 1)
+          Int(clock.seconds) == 0 && clock.inClockMode ? 0.3 : 1)
       }
-      .animation(.spring(), value: clock.seconds)
+      .animation(clock.arrowMovementAnimation, value: clock.seconds)
+      .padding()
     }
 }
 

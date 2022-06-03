@@ -13,8 +13,12 @@ class ClockModel: ObservableObject {
   @Published var hours:   Int = 18
   @Published var minutes: Int = 33
   @Published var seconds: Int = 27
-  @Published var style: ClockStyle = .grid
+  @Published var style: ClockStyle = .gear
   @Published var arrowIndex: Int = 0
+  @Published var arrowMovementAnimation: Animation = .easeInOut
+  
+  @Published var inClockMode: Bool = true
+  
   
   var secondsArrowRotation: Angle { Angle(degrees:
         6 *   Double(seconds) ) }
@@ -35,22 +39,22 @@ class ClockModel: ObservableObject {
   var mainBackground:    Color = .black
   
   var hoursDigitColor:   Color {
-    running ? Color(uiColor: UIColor(hoursArrowColor).inverted)
+    inClockMode ? Color(uiColor: UIColor(hoursArrowColor).inverted)
         : hoursArrowColor }
   var minutesDigitColor: Color {
-    running ? Color(uiColor: UIColor(minutesArrowColor).inverted)
+    inClockMode ? Color(uiColor: UIColor(minutesArrowColor).inverted)
         : minutesArrowColor   }
   var secondsDigitColor: Color {
-    running ? Color(uiColor: UIColor(secondsArrowColor).inverted)
+    inClockMode ? Color(uiColor: UIColor(secondsArrowColor).inverted)
         : secondsArrowColor
   }
   
 //  @AppStorage("refreshColorTime")
 //  var refreshColorInterval: Float = 1
-//  
+//
 //  @AppStorage("refreshCaosTime")
 //  var caosTimeRefreshInterval: Int = 3
-//  
+//
 //  @AppStorage("caosColorRefreshInterval")
 //  var caosColorRefreshInterval: Int = 3
   //MARK: Settings
@@ -64,10 +68,10 @@ class ClockModel: ObservableObject {
   var caosColorRefreshInterval: Int = 3
   @AppStorage("caosRandom")
   var caosRandom: Bool = false
- 
+  @AppStorage("digitsIsShown")
+  var digitsIsShown:Bool = true
   
   private var timer = Timer()
-  var running: Bool = true
   
   init() {
     generateColors()
@@ -77,7 +81,7 @@ class ClockModel: ObservableObject {
   private func launchTimer() {
     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
      
-      if self.running {  self.calculateTime()
+      if self.inClockMode {  self.calculateTime()
       } else {
         if Int(Calendar.current.component(.second ,from: Date.now)) % self.caosTimeRefreshInterval == 0 {
           self.generateTime()
