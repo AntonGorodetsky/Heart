@@ -16,41 +16,40 @@ struct ContentView: View {
       NavigationView {
         ZStack {
           ClockFace(clock: clock)
-            .onTapGesture(perform: { clock.running.toggle() })
-            .padding(20)
-            .background { clock.mainBackground }
-          
-          VStack {
+            .onTapGesture(perform: { clock.inClockMode.toggle() })
+//            .padding(20)
+//            .background { clock.mainBackground }
+          VStack(alignment: .leading) {
             Spacer()
             HStack {
               Spacer()
               NavigationLink {
                 SettingsView(clock: clock)
-                  .onAppear { clock.running = false }
-                  .onDisappear { clock.running = true }
+                  .onAppear { clock.inClockMode = false }
+                  .onDisappear { clock.inClockMode = true }
               } label: {
                 Image(systemName: "gear")
                   .resizable()
-                  .frame(width: 30, height: 30,
-                         alignment: .center)
+                  .frame(width: 30, height: 30)
                   .tint(.gray)
                   .shadow(color: .black, radius: 2,
                           x: 1, y: 1)
                   .padding()
-              }
-            .padding(.top, 50)
+              }.navigationBarTitleDisplayMode(.inline)
+//              .navigationBarTitle("Hidden Title")
+//              .navigationBarHidden(true)
             }
-          }
           
+          }
 
         
         
         
       }
+      .background { clock.mainBackground }
       .ignoresSafeArea()
-      .background(Color.clear)
+//      .background(Color.clear)
     }
-    .background { clock.mainBackground }
   }
 }
 

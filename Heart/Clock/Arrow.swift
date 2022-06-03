@@ -42,7 +42,9 @@ struct Arrow: View {
       VStack {
         
         if showDigit {
-          Text("\(Int(digit))")
+          Text(
+            "\(Int(digit))"
+          )
             .foregroundColor(digitColor)
             .fontWeight(.heavy)
             .font(.title)
