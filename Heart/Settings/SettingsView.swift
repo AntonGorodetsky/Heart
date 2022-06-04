@@ -31,9 +31,9 @@ struct SettingsView: View {
         //        .padding(.top, 100)
         //          .ignoresSafeArea()
 //                .scaledToFit()
-//            .padding(20)
+            .padding(5)
 //          .padding(.horizontal, 100)
-//          .aspectRatio(1, contentMode: .fit)
+          .aspectRatio(1, contentMode: .fit)
 //          .frame(width: 300, height: 300, alignment: .center)
 //          .frame( height: geometry.size.width , alignment: .center)
 //          .scaleEffect(0.5)
@@ -47,9 +47,10 @@ struct SettingsView: View {
 //          .frame( height: geometry.size.height, alignment: .center)
 //
         //              .frame(alignment: .center)
-      } .aspectRatio(1, contentMode: .fit)
+      }
+//      .aspectRatio(1, contentMode: .fit)
 //      .fixedSize()
-//      .padding(.horizontal)
+         .padding()
 //      .scaleEffect(0.5)
       Spacer()
       Picker("Style", selection: $clock.style) {
@@ -58,7 +59,7 @@ struct SettingsView: View {
         }
       }.pickerStyle(.segmented)
         .padding()
-//      Spacer()
+      Spacer()
       Group {
         Toggle(isOn: $digitsIsShown) {
           Text("show digits")
@@ -67,20 +68,21 @@ struct SettingsView: View {
         )
         Stepper("background  \(refreshBackgroundInterval) second", value: $refreshBackgroundInterval, in: (1...60)
         )
+       
+        
         Stepper("caos colors  \(caosColorRefreshInterval) sec ", value: $caosColorRefreshInterval, in: (1...10)
         ).disabled(false)
         
-        Toggle("caosRandom", isOn: $caosRandom)
+//        Toggle("caosRandom", isOn: $caosRandom)
         
-        if !caosRandom {
-          Stepper(value: $caosTimeRefreshInterval, in: (1...10)) {
-            Text( "caos refresh  \(caosTimeRefreshInterval) each second")
-            //          Text( "caos refresh " + caosRandom ? "rendom":"\(caosTimeRefreshInterval) each second ")
-          }.disabled(caosRandom)
-        } else {
-          /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
-        }
         
+//        Stepper(value: $caosTimeRefreshInterval, in: (1...10)) {
+//          Text( "caos refresh  \(caosTimeRefreshInterval) each second")
+//          //          Text( "caos refresh " + caosRandom ? "rendom":"\(caosTimeRefreshInterval) each second ")
+//        }.disabled(caosRandom)
+//
+        
+//        Spacer()
         
       }.padding(.horizontal)
       

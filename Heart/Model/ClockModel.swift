@@ -90,8 +90,9 @@ class ClockModel: ObservableObject {
       
       if self.seconds % Int(self.refreshColorInterval) == 0 { self.generateColors() }
     
-      if (self.refreshBackgroundInterval) % (self.seconds + 1)  == 0 {
-       
+//      if (self.refreshBackgroundInterval) % (self.seconds + 1)  == 0 {
+      if self.seconds % (self.refreshBackgroundInterval) == 0 {
+      
         self.mainBackground = Color.generateRandom()
         //      Color(hue:        Double.random(in: 0.1...0.95),
         //                 saturation: Double.random(in: 0.1...0.95),

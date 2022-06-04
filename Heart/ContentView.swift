@@ -43,8 +43,8 @@ struct ContentView: View {
       .background { clock.mainBackground }
       .ignoresSafeArea()
     }.navigationBarTitleDisplayMode(.inline)
-      .navigationBarHidden(true)
-      .navigationViewStyle(.stack)
+    .navigationBarHidden(true)
+    .navigationViewStyle(.stack)
     
   }
 }
