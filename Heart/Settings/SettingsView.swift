@@ -57,7 +57,8 @@ struct SettingsView: View {
           Text(style.name)
         }
       }.pickerStyle(.segmented)
-      Spacer()
+        .padding()
+//      Spacer()
       Group {
         Toggle(isOn: $digitsIsShown) {
           Text("show digits")
@@ -86,7 +87,8 @@ struct SettingsView: View {
      Spacer()
       
     }
-    .padding(.horizontal)
+//    .padding(.horizontal)
+    .padding()
   }
 }
 
