@@ -33,10 +33,12 @@ struct Arrow: View {
         .aspectRatio(style.aspectRatio, contentMode: .fit)
         .rotationEffect(style.primaryRotationAngle)
         .foregroundColor(arrowColor)
-        .shadow(color: .white, radius: 3,
+        .shadow(color: digitColor, radius: 2,
                 x: 0, y: -2)
+//        .shadow(color: .white, radius: 2,
+//                x: 0, y: -7)
         .shadow(color: .black, radius: 3,
-                x: 0, y: 5)
+                x: 0, y: 3)
         .offset(x: 0, y: style.arrowOffset)
     
       VStack {
@@ -49,7 +51,7 @@ struct Arrow: View {
             .fontWeight(.heavy)
             .font(.title)
   //          .brightness(0.3)
-            .shadow(color: .black, radius: 2 )
+//            .shadow(color: .black, radius: 2 )
             .rotationEffect(digitRotation,
                             anchor: .center)
             .offset(x: 0, y: digitOffset)

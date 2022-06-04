@@ -61,7 +61,7 @@ class ClockModel: ObservableObject {
   @AppStorage("clockColorsRefreshInterval")
   var refreshColorInterval: Int = 1
   @AppStorage("refreshBackgroundInterval")
-  var refreshBackgroundInterval: Int = 60
+  var refreshBackgroundInterval: Int = 4
   @AppStorage("caosTimeRefreshInterval")
   var caosTimeRefreshInterval: Int = 3
   @AppStorage("caosColorRefreshInterval")
@@ -90,7 +90,8 @@ class ClockModel: ObservableObject {
       
       if self.seconds % Int(self.refreshColorInterval) == 0 { self.generateColors() }
     
-      if self.refreshBackgroundInterval % (self.seconds + 1)  == 0 {
+      if (self.refreshBackgroundInterval) % (self.seconds + 1)  == 0 {
+       
         self.mainBackground = Color.generateRandom()
         //      Color(hue:        Double.random(in: 0.1...0.95),
         //                 saturation: Double.random(in: 0.1...0.95),

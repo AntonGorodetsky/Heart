@@ -35,21 +35,17 @@ struct ContentView: View {
                   .shadow(color: .black, radius: 2,
                           x: 1, y: 1)
                   .padding()
-              }.navigationBarTitleDisplayMode(.inline)
-//              .navigationBarTitle("Hidden Title")
-//              .navigationBarHidden(true)
+              }
             }
-          
           }
 
-        
-        
-        
       }
       .background { clock.mainBackground }
       .ignoresSafeArea()
-//      .background(Color.clear)
-    }
+    }.navigationBarTitleDisplayMode(.inline)
+      .navigationBarHidden(true)
+      .navigationViewStyle(.stack)
+    
   }
 }
 
