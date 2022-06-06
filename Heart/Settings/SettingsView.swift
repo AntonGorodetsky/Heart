@@ -13,13 +13,13 @@ struct SettingsView: View {
   @AppStorage("clockColorsRefreshInterval")
   var refreshColorInterval: Int = 1
   @AppStorage("refreshBackgroundInterval")
-  var refreshBackgroundInterval: Int = 60
-  @AppStorage("caosTimeRefreshInterval")
-  var caosTimeRefreshInterval: Int = 3
-  @AppStorage("caosColorRefreshInterval")
-  var caosColorRefreshInterval: Int = 3
-  @AppStorage("caosRandom")
-  var caosRandom: Bool = false
+  var refreshBackgroundInterval: Int = 3
+  @AppStorage("chaosTimeRefreshInterval")
+  var chaosTimeRefreshInterval: Int = 3
+  @AppStorage("chaosColorRefreshInterval")
+  var chaosColorRefreshInterval: Int = 3
+  @AppStorage("chaosRandom")
+  var chaosRandom: Bool = false
   @AppStorage("digitsIsShown")
   var digitsIsShown:Bool = true
   
@@ -33,7 +33,7 @@ struct SettingsView: View {
 //                .scaledToFit()
             .padding(5)
 //          .padding(.horizontal, 100)
-          .aspectRatio(1, contentMode: .fit)
+//          .aspectRatio(1, contentMode: .fit)
 //          .frame(width: 300, height: 300, alignment: .center)
 //          .frame( height: geometry.size.width , alignment: .center)
 //          .scaleEffect(0.5)
@@ -48,10 +48,12 @@ struct SettingsView: View {
 //
         //              .frame(alignment: .center)
       }
-//      .aspectRatio(1, contentMode: .fit)
+      .aspectRatio(1, contentMode: .fit)
 //      .fixedSize()
-         .padding()
+      .padding(.horizontal, 30)
 //      .scaleEffect(0.5)
+//      Spacer()
+//        .padding()
       Spacer()
       Picker("Style", selection: $clock.style) {
         ForEach(ClockStyle.allCases) { style in
@@ -59,37 +61,39 @@ struct SettingsView: View {
         }
       }.pickerStyle(.segmented)
         .padding()
-      Spacer()
-      Group {
-        Toggle(isOn: $digitsIsShown) {
-          Text("show digits")
-        }
-        Stepper("clock colors \(refreshColorInterval)", value: $refreshColorInterval, in: (1...10)
-        )
-        Stepper("background  \(refreshBackgroundInterval) second", value: $refreshBackgroundInterval, in: (1...60)
-        )
+      List {
+        
+//        Toggle(isOn: $digitsIsShown) {
+//          Text("show digits")
+//        }.disabled(true)
        
         
-        Stepper("caos colors  \(caosColorRefreshInterval) sec ", value: $caosColorRefreshInterval, in: (1...10)
-        ).disabled(false)
+        Section {
+          Stepper("clock \(refreshColorInterval), sec", value: $refreshColorInterval, in: (1...10)
+          )
         
-//        Toggle("caosRandom", isOn: $caosRandom)
+          Stepper("background \(refreshBackgroundInterval), sec", value: $refreshBackgroundInterval, in: (1...60)
+          )
+          
+          
+          Stepper("random mode \(chaosColorRefreshInterval), sec ", value: $chaosColorRefreshInterval, in: (1...10)
+          ).disabled(false)
+        } header: {
+          Text("Color update intervals").font(.caption2)
+        }
+        .multilineTextAlignment(.leading)
         
-        
-//        Stepper(value: $caosTimeRefreshInterval, in: (1...10)) {
-//          Text( "caos refresh  \(caosTimeRefreshInterval) each second")
-//          //          Text( "caos refresh " + caosRandom ? "rendom":"\(caosTimeRefreshInterval) each second ")
-//        }.disabled(caosRandom)
-//
-        
-//        Spacer()
-        
-      }.padding(.horizontal)
+      }.cornerRadius(15)
+      
       
      Spacer()
       
     }
-//    .padding(.horizontal)
+    .navigationBarTitle("Settings")
+    .navigationBarTitleDisplayMode(.inline)
+//    .navigationBarHidden(true)
+//  .navigationViewStyle(.stack)
+    
     .padding()
   }
 }

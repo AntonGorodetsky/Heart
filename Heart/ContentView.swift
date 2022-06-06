@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @StateObject var clock: ClockModel
+  @AppStorage("firstLaunched") var firstLaunched = true
  
   var body: some View {
   
@@ -17,8 +18,21 @@ struct ContentView: View {
         ZStack {
           ClockFace(clock: clock)
             .onTapGesture(perform: { clock.inClockMode.toggle() })
+          
+//          Button(action: {
+//            firstLaunched = false
+//          }, label: {
+//          })
+//
+//          Image(systemName: "gear")
+            .alert( isPresented: $firstLaunched) {
+              Alert(title: Text("Tap clock"), message: Text("to switch mode"), dismissButton: .default(Text("ok"), action: {
+                firstLaunched = false
+              }))
+              }
 //            .padding(20)
 //            .background { clock.mainBackground }
+           
           VStack(alignment: .leading) {
             Spacer()
             HStack {
@@ -43,8 +57,10 @@ struct ContentView: View {
       .background { clock.mainBackground }
       .ignoresSafeArea()
     }.navigationBarTitleDisplayMode(.inline)
-    .navigationBarHidden(true)
-    .navigationViewStyle(.stack)
+    
+//      .navigationBarTitle("setNav")
+////    .navigationBarHidden(true)
+//    .navigationViewStyle(.stack)
     
   }
 }

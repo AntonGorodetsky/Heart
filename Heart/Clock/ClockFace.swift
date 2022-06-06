@@ -48,7 +48,8 @@ struct ClockFace: View {
           digitOffset: clock.style.secondsDigitOffset,
           arrowPadding: clock.style.seconsArrowPadding,
           style: clock.style,
-          showDigit: clock.inClockMode
+          showDigit: false
+//            clock.inClockMode
         ).scaleEffect(clock.style.secondsArrowScale)
         .scaleEffect(Int(clock.seconds) % 2 == 0 ? 0.99 : 1)
         .scaleEffect(

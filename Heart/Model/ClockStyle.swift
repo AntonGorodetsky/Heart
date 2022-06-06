@@ -20,7 +20,7 @@ enum ClockStyle: CaseIterable, Identifiable {
     case .gear: return "gear"
     case .grid: return "grid"
     case .grid3: return "grid3"
-    default: return "brain"
+    default: return "star"
     }
   }
   var arrowImageName: String {
@@ -37,7 +37,7 @@ enum ClockStyle: CaseIterable, Identifiable {
                      "star.fill",
 
                      "scale.3d",
-                     "cube.fill"][0]
+                     "cube.fill"][3]
       
 /*
  arrow.up.and.down.and.arrow.left.and.right
@@ -65,7 +65,7 @@ enum ClockStyle: CaseIterable, Identifiable {
   var arrowOffset: CGFloat {
     switch self {
     case .drop: return -20
-    case .other: return -45
+    case .other: return 0
     default: return 0
     }
   }
@@ -133,7 +133,7 @@ enum ClockStyle: CaseIterable, Identifiable {
     case .drop: return arrowOffset + 5
     case .gear: return 5
     case .grid, .grid3: return -55
-    default: return -30
+    default: return 0
     }
   }
   var minutesDigitOffset: CGFloat {

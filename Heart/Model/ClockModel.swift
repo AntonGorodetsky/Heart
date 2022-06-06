@@ -13,7 +13,7 @@ class ClockModel: ObservableObject {
   @Published var hours:   Int = 18
   @Published var minutes: Int = 33
   @Published var seconds: Int = 27
-  @Published var style: ClockStyle = .gear
+  @Published var style: ClockStyle = .other
   @Published var arrowIndex: Int = 0
   @Published var arrowMovementAnimation: Animation = .easeInOut
   
@@ -52,24 +52,25 @@ class ClockModel: ObservableObject {
 //  @AppStorage("refreshColorTime")
 //  var refreshColorInterval: Float = 1
 //
-//  @AppStorage("refreshCaosTime")
-//  var caosTimeRefreshInterval: Int = 3
+//  @AppStorage("refreshchaosTime")
+//  var chaosTimeRefreshInterval: Int = 3
 //
-//  @AppStorage("caosColorRefreshInterval")
-//  var caosColorRefreshInterval: Int = 3
+//  @AppStorage("chaosColorRefreshInterval")
+//  var chaosColorRefreshInterval: Int = 3
   //MARK: Settings
   @AppStorage("clockColorsRefreshInterval")
   var refreshColorInterval: Int = 1
   @AppStorage("refreshBackgroundInterval")
   var refreshBackgroundInterval: Int = 4
-  @AppStorage("caosTimeRefreshInterval")
-  var caosTimeRefreshInterval: Int = 3
-  @AppStorage("caosColorRefreshInterval")
-  var caosColorRefreshInterval: Int = 3
-  @AppStorage("caosRandom")
-  var caosRandom: Bool = false
+  @AppStorage("chaosTimeRefreshInterval")
+  var chaosTimeRefreshInterval: Int = 3
+  @AppStorage("chaosColorRefreshInterval")
+  var chaosColorRefreshInterval: Int = 3
+  @AppStorage("chaosRandom")
+  var chaosRandom: Bool = false
   @AppStorage("digitsIsShown")
   var digitsIsShown:Bool = true
+ 
   
   private var timer = Timer()
   
@@ -83,7 +84,7 @@ class ClockModel: ObservableObject {
      
       if self.inClockMode {  self.calculateTime()
       } else {
-        if Int(Calendar.current.component(.second ,from: Date.now)) % self.caosTimeRefreshInterval == 0 {
+        if Int(Calendar.current.component(.second ,from: Date.now)) % self.chaosTimeRefreshInterval == 0 {
           self.generateTime()
         }
       }
@@ -100,7 +101,7 @@ class ClockModel: ObservableObject {
         //                 opacity: 1)
       }
     
-      if self.caosRandom { self.caosTimeRefreshInterval = .random(in: (2...4)) }
+      if self.chaosRandom { self.chaosTimeRefreshInterval = .random(in: (2...4)) }
 
     }
     
