@@ -25,64 +25,46 @@ struct SettingsView: View {
   @AppStorage("clockStyleShadow")
   var clockStyleShadow: Int = 1
   
+  let size = UIScreen.main.bounds
   
   var body: some View {
     VStack {
-      Group {
-//        geometry in
-        ClockFace(clock: clock)
-        //        .padding(.top, 100)
-        //          .ignoresSafeArea()
-//                .scaledToFit()
-            .padding(5)
-//          .padding(.horizontal, 100)
-//          .aspectRatio(1, contentMode: .fit)
-//          .frame(width: 300, height: 300, alignment: .center)
-//          .frame( height: geometry.size.width , alignment: .center)
-//          .scaleEffect(0.5)
-          .background {
-            Rectangle()
-              .fill(clock.mainBackground)
-              .cornerRadius(10)
-//              .padding()
-              .shadow(color: .black, radius: 7, x: 0, y: 0)
-          }
-//          .frame( height: geometry.size.height, alignment: .center)
-//
-        //              .frame(alignment: .center)
-      }
-      .aspectRatio(1, contentMode: .fit)
-//      .fixedSize()
-      .padding(.horizontal, 30)
-//      .scaleEffect(0.5)
-//      Spacer()
-//        .padding()
+      
+      ClockFace(clock: clock)
+        .frame(width: size.width * 0.7, height: size.width * 0.7, alignment: .center)
+        .padding()
+        .background {
+          Rectangle()
+            .fill(clock.mainBackground)
+            .cornerRadius(10)
+            .shadow(color: .primary, radius: 7, x: 0, y: 0)
+        }
+        .clipped()
+      
+      
+
       Spacer()
       Picker("Style", selection: $clock.style) {
         ForEach(ClockStyle.allCases) { style in
           Text(style.name)
         }
       }.pickerStyle(.segmented)
-        .padding()
-        .onAppear { clock.style = ClockStyle(rawValue: clockStyleShadow) ?? .drop}
-        .onChange(of: clock.style) { newValue in
+      .padding()
+      .onAppear { clock.style = ClockStyle(rawValue: clockStyleShadow) ?? .drop}
+      .onChange(of: clock.style) { newValue in
           clockStyleShadow = newValue.rawValue }
-
+        Spacer()
       List {
-        
 //        Toggle(isOn: $digitsIsShown) {
 //          Text("show digits")
 //        }.disabled(true)
-       
-        
         Section {
           Stepper("clock \(refreshColorInterval), sec", value: $refreshColorInterval, in: (1...10)
           )
         
           Stepper("background \(refreshBackgroundInterval), sec", value: $refreshBackgroundInterval, in: (1...60)
           )
-          
-          
+
           Stepper("random mode \(chaosColorRefreshInterval), sec ", value: $chaosColorRefreshInterval, in: (1...10)
           ).disabled(false)
         } header: {
@@ -90,12 +72,10 @@ struct SettingsView: View {
         }
         .multilineTextAlignment(.leading)
         
+//        Text("\(size.height) \(size.width)")
       }.cornerRadius(15)
-      
-     Spacer()
-      
     }
-    .navigationBarTitle("Settings")
+    .navigationBarTitle("")
     .navigationBarTitleDisplayMode(.inline)
 //    .navigationBarHidden(true)
 //  .navigationViewStyle(.stack)

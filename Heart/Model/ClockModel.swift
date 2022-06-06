@@ -73,7 +73,11 @@ class ClockModel: ObservableObject {
   @AppStorage("clockStyleShadow")
   var clockStyleShadow: Int = 1
   
+  @AppStorage("firstLaunched") var firstLaunched = true
+  
   private var timer = Timer()
+  
+  var timerEvent = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
   init() {
     style = ClockStyle(rawValue: self.clockStyleShadow) ?? .drop
@@ -83,27 +87,20 @@ class ClockModel: ObservableObject {
   
   private func launchTimer() {
     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-     
-      if self.inClockMode {  self.calculateTime()
+      if self.inClockMode {
+        self.calculateTime()
       } else {
         if Int(Calendar.current.component(.second ,from: Date.now)) % self.chaosTimeRefreshInterval == 0 {
           self.generateTime()
         }
       }
       
-      if self.seconds % Int(self.refreshColorInterval) == 0 { self.generateColors() }
-    
-//      if (self.refreshBackgroundInterval) % (self.seconds + 1)  == 0 {
-      if self.seconds % (self.refreshBackgroundInterval) == 0 {
-      
-        self.mainBackground = Color.generateRandom()
-        //      Color(hue:        Double.random(in: 0.1...0.95),
-        //                 saturation: Double.random(in: 0.1...0.95),
-        //                 brightness: Double.random(in: 0.3...0.5),
-        //                 opacity: 1)
-      }
-    
-      if self.chaosRandom { self.chaosTimeRefreshInterval = .random(in: (2...4)) }
+      if self.seconds % Int(self.refreshColorInterval) == 0
+        { self.generateColors() }
+      if self.seconds % (self.refreshBackgroundInterval) == 0
+        { self.mainBackground = Color.generateRandom() }
+      if self.chaosRandom
+        { self.chaosTimeRefreshInterval = .random(in: (2...4)) }
 
     }
     
@@ -164,8 +161,13 @@ extension UIColor {
 //    }
 //}
 
+
+
+
 struct Previews_ClockModel_Previews: PreviewProvider {
   static var previews: some View {
     /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
   }
 }
+
+

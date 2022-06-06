@@ -71,7 +71,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
   var arrowOffset: CGFloat {
     switch self {
     case .drop: return -20
-    case .card: return -100
+    case .card: return -120
     case .other: return -50
     default: return 0
     }
@@ -89,7 +89,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return 1
     case .gear: return 1
     case .grid, .grid3: return 0.74
-    case .card: return 0.50
+    case .card: return 0.53
     default:      return 0.9
     }
   }
@@ -98,7 +98,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return 0.63
     case .gear: return 0.83
     case .grid, .grid3: return self.hourArrowScale - 0.15
-    case .card: return self.hourArrowScale
+    case .card: return self.hourArrowScale - 0.07
     default:      return self.hourArrowScale - 0.15
     }
   }
@@ -143,7 +143,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop: return arrowOffset + 5
     case .gear: return 5
     case .grid, .grid3: return -55
-    case .card: return   arrowOffset / (1.2 - hourArrowScale)
+    case .card: return  arrowOffset / (1.27 - hourArrowScale)
     default: return 0
     }
   }

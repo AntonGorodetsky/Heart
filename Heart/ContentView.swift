@@ -9,68 +9,66 @@ import SwiftUI
 
 struct ContentView: View {
   @StateObject var clock: ClockModel
-  @AppStorage("firstLaunched") var firstLaunched = true
- 
-  var body: some View {
   
-      
-      NavigationView {
-        ZStack {
-          ClockFace(clock: clock)
-            .onTapGesture(perform: { clock.inClockMode.toggle() })
-          
-//          Button(action: {
-//            firstLaunched = false
-//          }, label: {
-//          })
-//
-//          Image(systemName: "gear")
-            .alert( isPresented: $firstLaunched) {
-              Alert(title: Text("Tap clock"), message: Text("to switch mode"), dismissButton: .default(Text("ok"), action: {
-                firstLaunched = false
-              }))
-              }
-//            .padding(20)
-//            .background { clock.mainBackground }
-           
-          VStack(alignment: .leading) {
+  
+  var body: some View {
+    
+    NavigationView {
+      ZStack {
+        ClockFace(clock: clock)
+          .onTapGesture(perform: { clock.inClockMode.toggle() })
+          .alert( isPresented: $clock.firstLaunched) {
+            Alert(title: Text("Tap clock"), message: Text("to switch mode"), dismissButton: .default(Text("ok"), action: {
+              clock.firstLaunched = false
+            }))
+          }
+        
+        VStack(alignment: .trailing) {
+          Spacer()
+          HStack {
             Spacer()
-            HStack {
-              Spacer()
-              NavigationLink {
-                SettingsView(clock: clock)
-                  .onAppear { clock.inClockMode = false }
-                  .onDisappear { clock.inClockMode = true }
-              } label: {
-                Image(systemName: "gear")
-                  .resizable()
-                  .frame(width: 30, height: 30)
-                  .tint(.gray)
-                  .shadow(color: .black, radius: 2,
-                          x: 1, y: 1)
-                  .padding()
-              }
+            /// navlink
+            NavigationLink {
+              SettingsView(clock: clock)
+                .onAppear { clock.inClockMode = false }
+                .onDisappear { clock.inClockMode = true }
+            } label: {
+              Image(systemName: "gear")
+                .resizable()
+                .frame(width: 30, height: 30)
+                .tint(.gray)
+                .shadow(color: .black, radius: 2,
+                        x: 1, y: 1)
+                .padding()
             }
           }
-
+        }
       }
       .background { clock.mainBackground }
       .ignoresSafeArea()
     }.navigationBarTitleDisplayMode(.inline)
-    
-//      .navigationBarTitle("setNav")
-////    .navigationBarHidden(true)
-//    .navigationViewStyle(.stack)
-    
+    //      .navigationBarTitle("setNav")
+    //    .navigationBarHidden(true)
+    //    .navigationViewStyle(.stack)
   }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-      ContentView(clock: ClockModel())
-    }
+  static var previews: some View {
+    ContentView(clock: ClockModel())
+  }
 }
 
 
-
+//struct ContentView: View {
+//    @State var currentDate = Date()
+//    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+//
+//    var body: some View {
+//        Text("\(currentDate)")
+//            .onReceive(timer) { input in
+//                currentDate = input
+//            }
+//    }
+//}
 

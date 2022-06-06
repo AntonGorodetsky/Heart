@@ -11,53 +11,40 @@ struct Arrow: View {
   
   let arrowColor: Color
   let digitColor: Color
-  
   @Binding var digit: Int
-
   let arrowRotation: Angle
   let digitRotation: Angle
-  
-  let digitOffset: CGFloat 
-  
+  let digitOffset: CGFloat
   let arrowPadding: CGFloat
-  
   let style: ClockStyle
-  
   var showDigit: Bool = true
+  let size = UIScreen.main.bounds
+  
   
   var body: some View {
-    
     ZStack {
       Image(systemName: style.arrowImageName )
         .resizable()
         .aspectRatio(style.aspectRatio, contentMode: .fit)
         .rotationEffect(style.primaryRotationAngle)
         .foregroundColor(arrowColor)
-        .shadow(color: digitColor, radius: 2,
-                x: 0, y: -2)
-//        .shadow(color: .white, radius: 2,
-//                x: 0, y: -7)
-        .shadow(color: .black, radius: 3,
-                x: 0, y: 3)
+        .shadow(color: digitColor, radius: 2, x: 0, y: -2)
+        .shadow(color: .black, radius: 3, x: 0, y: 3)
         .offset(x: 0, y: style.arrowOffset)
     
       VStack {
         Group {
           
+//          switch style {
+//          default: return Text()
+//          }
+          
           if showDigit {
             if true {
-              Text(
-                "\(Int(digit))"
-              )
-//                            .foregroundColor(digitColor)
-                            .fontWeight(.heavy)
-                            .font(.title)
-              //    //          .brightness(0.3)
-              //  //            .shadow(color: .black, radius: 2 )
-              //              .rotationEffect(digitRotation,
-              //                              anchor: .center)
-              //            .offset(x: 0, y: digitOffset)
-            } else {
+              Text("\(Int(digit))")
+                .fontWeight(.heavy)
+                .font(.title)
+              } else {
               let d = Int(digit)
               var srt = d >= 10 ?  "\(d)" : "0\(d)"
               Image(systemName: srt + ".circle.fill")
