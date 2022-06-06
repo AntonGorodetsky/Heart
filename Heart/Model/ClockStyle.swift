@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-enum ClockStyle: CaseIterable, Identifiable {
+enum ClockStyle: Int, CaseIterable, Identifiable {
   
-  case  drop, gear, grid, grid3, other
+  case  drop = 1, gear, grid, grid3, other
   
   var id: Self { self }
+  
+  
   
   var name: String {
     switch self {
@@ -88,7 +90,7 @@ enum ClockStyle: CaseIterable, Identifiable {
   var minutesArrowScale: CGFloat {
     switch self {
     case .drop:   return 0.63
-    case .gear: return 0.87
+    case .gear: return 0.83
     case .grid, .grid3: return self.hourArrowScale - 0.15
     default:      return self.hourArrowScale - 0.15
     }

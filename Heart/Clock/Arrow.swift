@@ -42,22 +42,40 @@ struct Arrow: View {
         .offset(x: 0, y: style.arrowOffset)
     
       VStack {
-        
-        if showDigit {
-          Text(
-            "\(Int(digit))"
-          )
-            .foregroundColor(digitColor)
-            .fontWeight(.heavy)
-            .font(.title)
-  //          .brightness(0.3)
-//            .shadow(color: .black, radius: 2 )
-            .rotationEffect(digitRotation,
-                            anchor: .center)
-            .offset(x: 0, y: digitOffset)
-        } else {
+        Group {
           
-        }
+          if showDigit {
+            if false {
+              Text(
+                "\(Int(digit))"
+              )
+//                            .foregroundColor(digitColor)
+                            .fontWeight(.heavy)
+                            .font(.title)
+              //    //          .brightness(0.3)
+              //  //            .shadow(color: .black, radius: 2 )
+              //              .rotationEffect(digitRotation,
+              //                              anchor: .center)
+              //            .offset(x: 0, y: digitOffset)
+            } else {
+              let d = Int(digit)
+              var srt = d >= 10 ?  "\(d)" : "0\(d)"
+              Image(systemName: srt + ".circle.fill")
+                .resizable()
+                .frame(width: 40, height: 40, alignment: .center)
+            }
+          } else {
+            
+          }
+        } .foregroundColor(digitColor)
+         
+//          .brightness(0.3)
+//            .shadow(color: .black, radius: 2 )
+          .rotationEffect(digitRotation,
+                          anchor: .center)
+        .offset(x: 0, y: digitOffset)
+        
+        
         
         Spacer()
       }

@@ -13,10 +13,9 @@ class ClockModel: ObservableObject {
   @Published var hours:   Int = 18
   @Published var minutes: Int = 33
   @Published var seconds: Int = 27
-  @Published var style: ClockStyle = .other
+  @Published var style: ClockStyle = .gear
   @Published var arrowIndex: Int = 0
-  @Published var arrowMovementAnimation: Animation = .easeInOut
-  
+  @Published var arrowMovementAnimation: Animation = .easeOut
   @Published var inClockMode: Bool = true
   
   
@@ -70,11 +69,14 @@ class ClockModel: ObservableObject {
   var chaosRandom: Bool = false
   @AppStorage("digitsIsShown")
   var digitsIsShown:Bool = true
- 
+  
+  @AppStorage("clockStyleShadow")
+  var clockStyleShadow: Int = 1
   
   private var timer = Timer()
   
   init() {
+    style = ClockStyle(rawValue: self.clockStyleShadow) ?? .drop
     generateColors()
     launchTimer()
   }

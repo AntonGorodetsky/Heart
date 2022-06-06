@@ -22,6 +22,9 @@ struct SettingsView: View {
   var chaosRandom: Bool = false
   @AppStorage("digitsIsShown")
   var digitsIsShown:Bool = true
+  @AppStorage("clockStyleShadow")
+  var clockStyleShadow: Int = 1
+  
   
   var body: some View {
     VStack {
@@ -61,6 +64,10 @@ struct SettingsView: View {
         }
       }.pickerStyle(.segmented)
         .padding()
+        .onAppear { clock.style = ClockStyle(rawValue: clockStyleShadow) ?? .drop}
+        .onChange(of: clock.style) { newValue in
+          clockStyleShadow = newValue.rawValue }
+
       List {
         
 //        Toggle(isOn: $digitsIsShown) {
@@ -84,7 +91,6 @@ struct SettingsView: View {
         .multilineTextAlignment(.leading)
         
       }.cornerRadius(15)
-      
       
      Spacer()
       
