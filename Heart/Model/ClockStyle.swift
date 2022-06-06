@@ -9,7 +9,7 @@ import SwiftUI
 
 enum ClockStyle: Int, CaseIterable, Identifiable {
   
-  case  drop = 1, gear, grid, grid3, other
+  case  drop = 1, gear, grid, grid3, card, other
   
   var id: Self { self }
   
@@ -22,6 +22,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .gear: return "gear"
     case .grid: return "grid"
     case .grid3: return "grid3"
+    case .card: return "card"
     default: return "star"
     }
   }
@@ -29,13 +30,15 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     switch self {
     case .drop:   return "drop.fill"            // "drop.circle.fill"
 //    case .circle: return "square.grid.3x3.fill" // "circle.circle.fill" // "drop.circle.fill"
-    case .grid: return "square.grid.2x2.fill" // "arrowtriangle.up.square.fill" "triangle.fill",
-    case .gear: return "gearshape.fill"
+    case .grid: return  "square.grid.2x2.fill" // "arrowtriangle.up.square.fill" "triangle.fill",
+    case .gear: return  "gearshape.fill"
     case .grid3: return "square.grid.3x3.fill"
-    default: return ["brain",
+    case .card: return  "square.fill"
+    default: return     ["brain",
                      "circle.hexagongrid.fill",
                      "seal.fill",
-                    
+                     "square.fill",
+                     "square.inset.filled",
                      "star.fill",
 
                      "scale.3d",
@@ -61,13 +64,15 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     switch self {
     case .drop: return Angle.zero
     case .other: return Angle(degrees: 0)
+    case .card: return Angle(degrees: 45)
     default:    return Angle(degrees: 45)
     }
   }
   var arrowOffset: CGFloat {
     switch self {
     case .drop: return -20
-    case .other: return 0
+    case .card: return -100
+    case .other: return -50
     default: return 0
     }
   }
@@ -84,6 +89,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return 1
     case .gear: return 1
     case .grid, .grid3: return 0.74
+    case .card: return 0.50
     default:      return 0.9
     }
   }
@@ -92,6 +98,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return 0.63
     case .gear: return 0.83
     case .grid, .grid3: return self.hourArrowScale - 0.15
+    case .card: return self.hourArrowScale
     default:      return self.hourArrowScale - 0.15
     }
   }
@@ -100,6 +107,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return 0.53
     case .gear: return 0.75
     case .grid, .grid3: return self.minutesArrowScale - 0.15
+    case .card:    return self.minutesArrowScale
     default:      return self.minutesArrowScale - 0.15
     }
   }
@@ -135,6 +143,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop: return arrowOffset + 5
     case .gear: return 5
     case .grid, .grid3: return -55
+    case .card: return   arrowOffset / (1.2 - hourArrowScale)
     default: return 0
     }
   }
@@ -143,6 +152,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return arrowOffset + 7
     case .gear: return 10
     case .grid, .grid3: return self.hoursDigitOffset + 5
+    case .card: return self.hoursDigitOffset + 5
     default: return self.hoursDigitOffset
     }
   }
@@ -151,6 +161,7 @@ enum ClockStyle: Int, CaseIterable, Identifiable {
     case .drop:   return arrowOffset + 7
     case .gear: return 15
     case .grid, .grid3: return self.minutesDigitOffset
+    case .card: return self.minutesDigitOffset
     default: return self.minutesDigitOffset
     }
   }

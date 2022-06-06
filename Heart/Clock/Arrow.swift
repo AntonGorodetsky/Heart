@@ -45,7 +45,7 @@ struct Arrow: View {
         Group {
           
           if showDigit {
-            if false {
+            if true {
               Text(
                 "\(Int(digit))"
               )
