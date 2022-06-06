@@ -54,7 +54,7 @@ struct ClockFace: View {
         .scaleEffect(
           Int(clock.seconds) == 0 && clock.inClockMode ? 0.3 : 1)
       }
-      .animation(clock.arrowMovementAnimation, value: clock.seconds)
+      .animation(.easeInOut(duration: clock.inClockMode ? 0.7 : Double(clock.chaosTimeRefreshInterval) * 0.7), value: clock.seconds) //clock.arrowMovementAnimation
       .padding()
     }
 }
