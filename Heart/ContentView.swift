@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @StateObject var clock: ClockModel
-  
+
   
   var body: some View {
     
@@ -17,10 +17,28 @@ struct ContentView: View {
       ZStack {
         ClockFace(clock: clock)
           .onTapGesture(perform: { clock.inClockMode.toggle() })
+          .contextMenu{
+            HStack {
+              Text("select clock style")
+                .font(.largeTitle)
+            }
+            ForEach(ClockStyle.allCases) { style in
+              Button {
+                print(style)
+                clock.style = style
+              } label: {
+                Text("\(style.name)")
+                Image(systemName: style.arrowImageName)
+              }
+            }
+            
+          }
+         
           .alert( isPresented: $clock.firstLaunched) {
             Alert(title: Text("Tap clock"), message: Text("to switch mode"), dismissButton: .default(Text("ok"), action: {
               clock.firstLaunched = false
             }))
+          
           }
         
         VStack(alignment: .trailing) {
