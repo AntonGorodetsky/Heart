@@ -34,9 +34,9 @@ struct ContentView: View {
             
           }
          
-          .alert( isPresented: $clock.firstLaunched) {
+          .alert( isPresented: $clock.firstLaunch) {
             Alert(title: Text("Tap clock"), message: Text("to switch mode"), dismissButton: .default(Text("ok"), action: {
-              clock.firstLaunched = false
+              clock.firstLaunch = false
             }))
           
           }

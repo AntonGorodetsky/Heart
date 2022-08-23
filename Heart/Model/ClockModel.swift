@@ -73,7 +73,7 @@ class ClockModel: ObservableObject {
   @AppStorage("clockStyleShadow")
   var clockStyleShadow: Int = 1
   
-  @AppStorage("firstLaunched") var firstLaunched = true
+  @AppStorage("firstLaunched") var firstLaunch = true
   
   private var timer = Timer()
   
@@ -117,7 +117,7 @@ class ClockModel: ObservableObject {
   private func generateTime() {
     seconds = .random(in: 0...59)
     minutes = .random(in: 0...59)
-    hours   = .random(in: 0...24)
+    hours   = .random(in: 0...23)
   }
   
   private func generateColors() {
